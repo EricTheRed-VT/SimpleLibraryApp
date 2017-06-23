@@ -4,12 +4,15 @@ package pl.model;
  * Created by eric on 6/22/17.
  */
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.*;
 import javax.transaction.UserTransaction;
 import java.util.List;
 
-[__strong__] @Entity @Table(name="books")
-
+//[__strong__]
+@Entity @Table(name="books")
+@RequestScoped @ManagedBean(name ="book")
 public class Book {
     @Id private String isbn;
     private String title;
@@ -60,8 +63,8 @@ public class Book {
                               int year) throws Exception {
         ut.begin();
         Book book = em.find(Book.class, isbn);
-        if (!title.equals(book.getTitle())) book.setTitle(title);
-        if (year != book.getYear()) book.setYear(year);
+        book.setTitle(title);
+        book.setYear(year);
         ut.commit();
     }
 
